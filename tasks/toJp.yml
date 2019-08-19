@@ -54,3 +54,6 @@
   win_file:
     path: C:\Temp
     state: absent
+
+- name: Windows firewall settings(WinRM HTTPS)
+  raw: 'netsh advfirewall firewall delete rule name="Allow WinRM HTTPS"'
