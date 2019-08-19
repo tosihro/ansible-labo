@@ -35,10 +35,10 @@
   tasks:
     - include: tasks/toJp.yml
 
-- name: debug
-  tasks:
-    - debug: var=group_names
-    - debug: msg="{{ play_hosts }}"
-    - debug: msg="{{ inventory_hostname }}"
-    - debug: var=hostvars[inventory_hostname]          
-    - debug: msg="groups={{groups}}"
+#- name: debug
+#  tasks:
+#    - debug: var=group_names
+#    - debug: msg="{{ play_hosts }}"
+#    - debug: msg="{{ inventory_hostname }}"
+#    - debug: var=hostvars[inventory_hostname]          
+#    - debug: msg="groups={{groups}}"

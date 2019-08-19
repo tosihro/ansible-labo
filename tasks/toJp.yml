@@ -49,3 +49,8 @@
 
 - name: ping test
   win_ping:
+
+- name: Remove directory structure
+  win_file:
+    path: C:\Temp
+    state: absent
