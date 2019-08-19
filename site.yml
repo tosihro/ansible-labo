@@ -1,12 +1,12 @@
 --- 
 - name: Create VMs
-   hosts: localhost
-   connection: local
-   vars_files:
-     - vars/vars.yml
-     - vars/azure_vms.yml
-   roles:
-     - azure_vms
+  hosts: localhost
+  connection: local
+  vars_files:
+    - vars/vars.yml
+    - vars/azure_vms.yml
+  roles:
+    - azure_vms
 
 - name: Add hosts type
   hosts: localhost
