@@ -37,3 +37,15 @@
 
 - name: Kick script
   win_shell: C:\Temp\ps_system_2016_uiLanguage_jp.ps1
+ 
+- name: Wait for windows system reboot
+  wait_for:
+    port: "{{ ansible_port }}"
+    host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+    timeout: 1200
+    delay: 10
+  vars:
+    ansible_connection: local
+
+- name: ping test
+  win_ping:
