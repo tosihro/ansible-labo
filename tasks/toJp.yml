@@ -17,7 +17,7 @@
 
 - name: Kick script
   become: yes
-#  become_user: "{{ azure_server_user }}"
+  become_user: "{{ azure_server_user }}"
   win_shell: C:\Temp\ps_system_2016_systemLanguage_jp.ps1
 
 - name: Wait for windows system reboot
@@ -32,15 +32,27 @@
 - name: ping test
   win_ping:
 
-- name: Push powerShell script templetes(uiLanguage_jp).
-  win_template:
-    src: templates/ps_system_2016_uiLanguage_jp.ps1.j2
-    dest: C:\Temp\ps_system_2016_uiLanguage_jp.ps1
+- name: Set timezone to 'Japan' 
+  win_timezone:
+    timezone: Tokyo Standard Time
 
-- name: Kick script
-  become: yes
-#  become_user: "{{ azure_server_user }}"
-  win_shell: C:\Temp\ps_system_2016_uiLanguage_jp.ps1
+- name: Region設定
+  win_region:
+    copy_settings: "true"
+    location: "122"
+    format: ja-JP
+    unicode_language: ja-JP
+  register: result
+
+# - name: Push powerShell script templetes(uiLanguage_jp).
+#   win_template:
+#     src: templates/ps_system_2016_uiLanguage_jp.ps1.j2
+#     dest: C:\Temp\ps_system_2016_uiLanguage_jp.ps1
+
+# - name: Kick script
+#   become: yes
+# #  become_user: "{{ azure_server_user }}"
+#   win_shell: C:\Temp\ps_system_2016_uiLanguage_jp.ps1
  
 - name: Wait for windows system reboot
   wait_for:
