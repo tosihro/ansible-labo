@@ -17,7 +17,7 @@
 
 - name: Kick script
   become: yes
-  become_user: "{{ azure_server_user }}"
+#  become_user: "{{ azure_server_user }}"
   win_shell: C:\Temp\ps_system_2016_systemLanguage_jp.ps1
 
 - name: Wait for windows system reboot
@@ -39,7 +39,7 @@
 
 - name: Kick script
   become: yes
-  become_user: "{{ azure_server_user }}"
+#  become_user: "{{ azure_server_user }}"
   win_shell: C:\Temp\ps_system_2016_uiLanguage_jp.ps1
  
 - name: Wait for windows system reboot
