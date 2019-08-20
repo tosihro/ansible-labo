@@ -47,10 +47,14 @@
 - name: 日本語UIの明示
   win_shell: Set-WinUILanguageOverride -Language ja-JP
 
+- name: 現在のsystem locale設定を取得
+  win_shell: (Get-WinSystemLocale).Name
+  register: locale
+  changed_when: false
+
 - name: system locale を ja-JP へ変更
   win_shell: Set-WinSystemLocale ja-JP
-  when: 
-    - locale.stdout.find('ja-JP') == -1 
+  when: locale.stdout.find('ja-JP') == -1 
 
 # - name: Push powerShell script templetes(uiLanguage_jp).
 #   win_template:
