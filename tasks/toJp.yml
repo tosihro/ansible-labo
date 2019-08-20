@@ -49,7 +49,8 @@
 
 - name: system locale を ja-JP へ変更
   win_shell: Set-WinSystemLocale ja-JP
-  when: locale.stdout.find('ja-JP') == -1 
+  when: 
+    - locale.stdout.find('ja-JP') == -1 
 
 # - name: Push powerShell script templetes(uiLanguage_jp).
 #   win_template:
