@@ -32,7 +32,7 @@
 - name: ping test
   win_ping:
 
-- name: Set timezone to 'Japan' 
+- name: timezone を 'Japan' へ変更 
   win_timezone:
     timezone: Tokyo Standard Time
 
@@ -43,6 +43,13 @@
     format: ja-JP
     unicode_language: ja-JP
   register: result
+
+- name: 日本語UIの明示
+  win_shell: Set-WinUILanguageOverride -Language ja-JP
+
+- name: system locale を ja-JP へ変更
+  win_shell: Set-WinSystemLocale ja-JP
+  when: locale.stdout.find('ja-JP') == -1 
 
 # - name: Push powerShell script templetes(uiLanguage_jp).
 #   win_template:
