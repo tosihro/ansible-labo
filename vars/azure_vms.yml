@@ -2,7 +2,7 @@
 azure_vms:
   - name: VM001-Win2016
     type: lang_conf_servers
-    vm_size: Standard_B2s
+    vm_size: Standard_B2ms
     os_type: Windows
     username: "{{ azure_server_user }}"
     password: "{{ azure_server_pass }}"

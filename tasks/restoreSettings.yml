@@ -1,0 +1,75 @@
+--- 
+- name: ping テスト
+  win_ping:
+
+- name: Temp ディレクトリ作成
+  win_file:
+    path: C:\Temp
+    state: directory
+
+- name: Windows firewall 設定(WinRM HTTPS)
+  raw: 'netsh advfirewall firewall add rule Profile=domain name="Allow WinRM HTTPS" d=in localport=5986 protocol=TCP action=allow'
+
+- name: Push powerShell script templetes(systemLanguage_jp).
+  win_template:
+    src: templates/ps_system_2016_systemLanguage_jp.ps1.j2
+    dest: C:\Temp\ps_system_2016_systemLanguage_jp.ps1
+
+- name: Kick script
+  become: yes
+  become_user: "{{ azure_server_user }}"
+  win_shell: C:\Temp\ps_system_2016_systemLanguage_jp.ps1
+
+- name: 再起動
+  win_reboot:
+
+- name: 再起動待ち
+  wait_for:
+    port: "{{ ansible_port }}"
+    host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+    timeout: 1200
+    delay: 10
+  vars:
+    ansible_connection: local
+
+- name: ping テスト
+  win_ping:
+
+- name: Push powerShell script templetes(uiLanguage_jp).
+  win_template:
+    src: templates/ps_system_2016_uiLanguage_jp.ps1.j2
+    dest: C:\Temp\ps_system_2016_uiLanguage_jp.ps1
+
+- name: Kick script
+  become: yes
+  become_user: "{{ azure_server_user }}"
+  win_shell: C:\Temp\ps_system_2016_uiLanguage_jp.ps1
+
+- name: 現在のsystem locale設定を取得
+  win_shell: (Get-WinSystemLocale).Name
+  register: locale
+  changed_when: false
+
+- name: system locale を ja-JP へ変更
+  win_shell: Set-WinSystemLocale ja-JP
+  when: locale.stdout.find('ja-JP') == -1 
+
+- name: 再起動
+  win_reboot:
+
+- name: 再起動待ち
+  wait_for:
+    port: "{{ ansible_port }}"
+    host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+    timeout: 1200
+    delay: 10
+  vars:
+    ansible_connection: local
+
+- name: ping test
+  win_ping:
+
+# - name: Remove directory structure
+#   win_file:
+#     path: C:\Temp
+#     state: absent

@@ -35,6 +35,21 @@
   tasks:
     - include: tasks/toJp.yml
 
+# - name: 設定を戻す
+#   gather_facts: no
+#   hosts: lang_conf_servers
+#   remote_user: "{{ azure_server_user }}"
+#   vars_files:
+#     - vars/vars.yml
+#   vars:
+#     ansible_user: "{{ azure_server_user }}"
+#     ansible_password: "{{ azure_server_pass }}"
+#     ansible_port: 5986
+#     ansible_connection: winrm
+#     ansible_winrm_server_cert_validation: ignore
+#   tasks:
+#     - include: tasks/toJp.yml
+  
 #- name: debug
 #  tasks:
 #    - debug: var=group_names
