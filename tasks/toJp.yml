@@ -35,21 +35,6 @@
 - name: ping テスト
   win_ping:
 
-# - name: timezone を 'Japan' へ変更 
-#   win_timezone:
-#     timezone: Tokyo Standard Time
-
-# - name: Region設定
-#   win_region:
-#     copy_settings: "true"
-#     location: "122"
-#     format: ja-JP
-#     unicode_language: ja-JP
-#   register: result
-
-# - name: 日本語UIの明示
-#   win_shell: Set-WinUILanguageOverride -Language ja-JP
-
 - name: Push powerShell script templetes(uiLanguage_jp).
   win_template:
     src: templates/ps_system_2016_uiLanguage_jp.ps1.j2
@@ -84,7 +69,3 @@
 - name: ping test
   win_ping:
 
-- name: Remove directory structure
-  win_file:
-    path: C:\Temp
-    state: absent

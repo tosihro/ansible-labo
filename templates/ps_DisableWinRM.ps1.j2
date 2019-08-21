@@ -1,0 +1,75 @@
+
+### Trustedhosts解除
+Clear-Item WSMan:\localhost\Client\Trustedhosts `
+    -Force
+
+
+### PowerShellのリモート設定無効化
+Disable-PSRemoting `
+    -Force
+    
+Disable-PSSessionConfiguration `
+    -Name microsoft.powershell*
+
+
+### WinRM用Firewallルール削除
+Remove-NetFirewallRule `
+    -DisplayName "Allow WinRM HTTPS"
+    
+Set-NetFirewallRule `
+    -Name "WINRM-HTTP-In-TCP" `
+    -Enabled False
+    
+Set-NetFirewallRule `
+    -Name "WINRM-HTTP-In-TCP-PUBLIC" `
+    -Enabled False
+
+
+### リモートUACの有効化
+$token_path = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+$token_prop_name = "LocalAccountTokenFilterPolicy"
+
+$token_key = Get-Item `
+                 -Path $token_path
+                 
+$token_value = $token_key.GetValue($token_prop_name, $null)
+
+if ($token_value -eq 1) {
+
+    Remove-ItemProperty `
+        -Path $token_path `
+        -Name $token_prop_name
+}
+
+
+### WinRMのBasic認証無効化
+$basicAuthSetting = Get-ChildItem WSMan:\localhost\Service\Auth | Where-Object {$_.Name -eq "Basic"}
+If (($basicAuthSetting.Value) -eq $true){
+
+    Set-Item `
+        -Path "WSMan:\localhost\Service\Auth\Basic" `
+        -Value $false
+
+}
+
+
+### SSL Listener削除
+
+Remove-WSManInstance winrm/config/listener `
+    -SelectorSet @{Address="*";Transport="HTTP"}
+    
+Remove-WSManInstance winrm/config/listener `
+    -SelectorSet @{Address="*";Transport="HTTPS"}
+
+
+### WinRMサービス停止
+If ((Get-Service "WinRM").Status -eq "Running"){
+
+    Set-Service `
+        -Name "WinRM" `
+        -StartupType Manual
+        
+    Stop-Service `
+        -Name "WinRM"
+
+}
