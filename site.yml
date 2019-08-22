@@ -35,14 +35,15 @@
   tasks:
     - include: tasks/toJp.yml
 
-# - name: Java Install
-#   hosts: install_java_servers
-#   connection: local
-#   vars_files:
-#     - vars/vars.yml
-#     - vars/azure_vms.yml
-#   roles:
-#     - windows-java
+- name: Java Install
+  hosts: install_java_servers
+  connection: local
+  vars_files:
+    - vars/vars.yml
+    - vars/azure_vms.yml
+    - vars/install_application.yml
+  roles:
+    - windows-java
 
 # - name: restore Config
 #   gather_facts: no
