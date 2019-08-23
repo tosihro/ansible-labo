@@ -12,6 +12,11 @@
     src: templates/ps_OpenJDK_Install.ps1.j2
     dest: C:\Temp\ps_OpenJDK_Install.ps1
 
+- name: Kick script
+  become: yes
+  become_user: "{{ azure_server_user }}"
+  win_shell: C:\Temp\ps_OpenJDK_Install.ps1
+
 
 # - name: Kick script
 #   become: yes
