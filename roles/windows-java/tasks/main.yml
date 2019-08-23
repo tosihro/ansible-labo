@@ -7,12 +7,10 @@
     path: C:\Temp
     state: directory
 
-
-
 - name: Push Open JDK.
   win_template:
-    src: templates/ps_OpenJDK_Install.ps1
-    dest: C:\Temp\ps_appInstall.ps1
+    src: templates/ps_OpenJDK_Install.ps1.j2
+    dest: C:\Temp\ps_OpenJDK_Install.ps1
 
 
 # - name: Kick script
