@@ -20,29 +20,29 @@
       loop_control:
         loop_var: user
 
-- name: jp script
-  gather_facts: no
-  hosts: lang_conf_servers
-  remote_user: "{{ azure_server_user }}"
-  vars_files:
-    - vars/vars.yml
-  vars:
-    ansible_user: "{{ azure_server_user }}"
-    ansible_password: "{{ azure_server_pass }}"
-    ansible_port: 5986
-    ansible_connection: winrm
-    ansible_winrm_server_cert_validation: ignore
-  tasks:
-    - include: tasks/toJp.yml
-
-# - name: Java Install
-#   hosts: install_java_servers
-#   connection: local
+# - name: jp script
+#   gather_facts: no
+#   hosts: lang_conf_servers
+#   remote_user: "{{ azure_server_user }}"
 #   vars_files:
 #     - vars/vars.yml
-#     - vars/azure_vms.yml
-#   roles:
-#     - windows-java
+#   vars:
+#     ansible_user: "{{ azure_server_user }}"
+#     ansible_password: "{{ azure_server_pass }}"
+#     ansible_port: 5986
+#     ansible_connection: winrm
+#     ansible_winrm_server_cert_validation: ignore
+#   tasks:
+#     - include: tasks/toJp.yml
+
+- name: Java Install
+  hosts: install_java_servers
+  connection: local
+  vars_files:
+    - vars/vars.yml
+    - vars/azure_vms.yml
+  roles:
+    - windows-java
 
 # - name: restore Config
 #   gather_facts: no

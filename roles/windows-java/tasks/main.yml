@@ -1,18 +1,27 @@
----
-- name: Install Java
-  win_chocolatey:
-    name: "{{ jdk_package }}"
-    state: present
-    version: "{{ java_major_version }}.{{ java_minor_version }}"
+--- 
+- name: ping テスト
+  win_ping:
 
-- name: Set Java_home
-  win_environment:
-    state: present
-    name: JAVA_HOME
-    value: 'c:\program files\java\jdk1.{{ java_major_version }}_{{ java_minor_version }}'
-    level: machine
+- name: Temp ディレクトリ作成
+ - win_stat: path=c:\Temp
+    register: dir_info
+  - win_file:
+    path: C:\Temp
+    state: directory
+    when: dir_info.exists == false
 
-- name: Add Java to path
-  win_path:
-    elements:
-      - 'c:\program files\java\jdk{{ java_major_version }}_{{ java_minor_version }}\bin'
+- name: Push Open JDK.
+  win_template:
+    src: templates/jdk-12.0.2
+    dest: "C:\Program Files"
+
+- name: Push powerShell script templetes(application install script).
+  win_template:
+    src: templates/ps_appInstall.ps1.j2
+    dest: C:\Temp\ps_appInstall.ps1
+
+- name: Kick script
+  become: yes
+  become_user: "{{ azure_server_user }}"
+  win_shell: C:\Temp\ps_appInstall.ps1
+

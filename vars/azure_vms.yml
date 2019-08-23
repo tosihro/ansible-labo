@@ -17,18 +17,18 @@ azure_vms:
     image_sku: 2016-Datacenter
     image_version: latest
     
-  - name: VM002-Win2016
-    type: servers
-    vm_size: Standard_B2ms
-    os_type: Windows
-    username: "{{ azure_server_user }}"
-    password: "{{ azure_server_pass }}"
-    os_disk_caching: ReadWrite
-    private_ip_address: 192.168.0.20
-    private_ip_allocation_method: Static
-    subnet_name: "{{ azure_vn_subnet_name }}"
-    managed_disk_type: Standard_LRS
-    image_offer: WindowsServer
-    image_publisher: MicrosoftWindowsServer
-    image_sku: 2016-Datacenter
-    image_version: latest
+  # - name: VM002-Win2016
+  #   type: servers
+  #   vm_size: Standard_B2ms
+  #   os_type: Windows
+  #   username: "{{ azure_server_user }}"
+  #   password: "{{ azure_server_pass }}"
+  #   os_disk_caching: ReadWrite
+  #   private_ip_address: 192.168.0.20
+  #   private_ip_allocation_method: Static
+  #   subnet_name: "{{ azure_vn_subnet_name }}"
+  #   managed_disk_type: Standard_LRS
+  #   image_offer: WindowsServer
+  #   image_publisher: MicrosoftWindowsServer
+  #   image_sku: 2016-Datacenter
+  #   image_version: latest
