@@ -6,8 +6,8 @@
  - win_stat: path=c:\Temp
     register: dir_info
   - win_file:
-    path: C:\Temp
-    state: directory
+      path: C:\Temp
+      state: directory
     when: dir_info.exists == false
 
 - name: Push Open JDK.
