@@ -6,7 +6,9 @@ Invoke-WebRequest `
     -Uri $JdkUrl$JdkFile `
     -OutFile $env:USERPROFILE\$JdkTemp;
 
-Expand-Archive $env:USERPROFILE\$JdkTemp -DestinationPath $env:USERPROFILE
+Expand-Archive `
+    -Path $env:USERPROFILE\$JdkTemp `
+    -DestinationPath "C:\Program Files\"
 
-# Remove-Item $JdkTemp `
-#     -Force;
+Remove-Item $JdkTemp `
+    -Force;
