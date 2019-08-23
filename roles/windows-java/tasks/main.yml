@@ -3,10 +3,11 @@
   win_ping:
 
 - name: Temp ディレクトリ作成
-  win_stat: path=c:\Temp
-  path: C:\Temp
-  state: directory
-  
+  win_file:
+    path: C:\Temp
+    state: directory
+
+
 
 - name: Push Open JDK.
   win_template:
