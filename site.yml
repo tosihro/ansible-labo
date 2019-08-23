@@ -47,7 +47,7 @@
     ansible_connection: winrm
     ansible_winrm_server_cert_validation: ignore
   tasks:
-    - include: openJDK_Install.yml
+    - include: tasks/openJDK_Install.yml
 
 # - name: restore Config
 #   gather_facts: no
