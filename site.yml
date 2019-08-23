@@ -35,7 +35,6 @@
 #   tasks:
 #     - include: tasks/toJp.yml
 
-
 - name: Java Install
   hosts: install_java_servers
   connection: local

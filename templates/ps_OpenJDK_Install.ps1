@@ -1,0 +1,12 @@
+$JdkUrl = "https://download.java.net/java/GA/jdk12.0.2/e482c34c86bd4bf8b56c0b35558996b9/10/GPL/"
+$JdkFile = "openjdk-12.0.2_windows-x64_bin.zip"
+$JdkTemp = "openjdk-12.0.2_windows-x64_bin.zip"
+
+Invoke-WebRequest `
+    -Uri $JdkUrl$JdkFile `
+    -OutFile $env:USERPROFILE\$JdkTemp;
+
+Expand-Archive $env:USERPROFILE\$JdkTemp -DestinationPath $env:USERPROFILE
+
+# Remove-Item $JdkTemp `
+#     -Force;
