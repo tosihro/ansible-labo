@@ -37,12 +37,17 @@
 
 - name: Java Install
   hosts: install_java_servers
-  connection: local
+  remote_user: "{{ azure_server_user }}"
   vars_files:
     - vars/vars.yml
-    - vars/azure_vms.yml
-  roles:
-    - windows-java
+  vars:
+    ansible_user: "{{ azure_server_user }}"
+    ansible_password: "{{ azure_server_pass }}"
+    ansible_port: 5986
+    ansible_connection: winrm
+    ansible_winrm_server_cert_validation: ignore
+  tasks:
+    - include: openJDK_Install.yml
 
 # - name: restore Config
 #   gather_facts: no
